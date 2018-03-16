@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 16:30:19 by regien            #+#    #+#             */
-/*   Updated: 2018/03/03 19:54:32 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/03 20:24:03 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <libft.h>
 
 void	print_error(char *str)
 {
@@ -31,7 +31,6 @@ int main(int ac, char **av)
 	int	socketfd;
 	int	newsocketfd;
 	int	portnbr;
-	//	int	clilen;
 	unsigned int	clilen;
 	int	n;
 	struct	sockaddr_in	serv_addr;
@@ -41,8 +40,8 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		print_error("Invalid port, please select one from 1025 to 5000\n");
-	if (atoi(av[1]) > 1024 && atoi(av[1]) < 5001)
-		portnbr = atoi(av[1]);
+	if (ft_atoi(av[1]) > 1024 && ft_atoi(av[1]) < 5001)
+		portnbr = ft_atoi(av[1]);
 	else
 		print_error("invalid port number\n");
 
@@ -52,11 +51,9 @@ int main(int ac, char **av)
 	if (socketfd < 0)
 		print_error("ERROR, creating the socket\n");
 	else
-		printf("Socket sucessfully created\n");
-	// keep writing
+		ft_putstr("Socket sucessfully created\n");
 
-	// initializing of serv_addr
-	bzero((char *) &serv_addr, sizeof(serv_addr));
+	ft_bzero((char *) &serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	serv_addr.sin_port = htons(portnbr);
@@ -72,13 +69,13 @@ int main(int ac, char **av)
 	if (newsocketfd < 0)
 		print_error("ERROR on accept\n");
 	else
-		printf("Connection ACCEPTED\n");
+		ft_putstr("Connection ACCEPTED\n");
 
-	bzero(buff, 250);
+	ft_bzero(buff, 250);
 	n = read(newsocketfd, buff, 250);
 	if (n < 0)
 		print_error("ERROR reading from socket\n");
-	if (!(strncmp(buff, "ping", 4)))
+	if (!(ft_strncmp(buff, "ping", 4)))
 	{
 		n = write(newsocketfd, "pong\npong\n", 11);
 		if (n < 0)
