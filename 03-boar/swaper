@@ -1,0 +1,1 @@
+echo message | mail -s subject root
