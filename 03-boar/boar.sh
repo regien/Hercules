@@ -23,5 +23,5 @@ then
 		echo "---------------------------------------------------------"
 		echo ""
 	fi
-	at -m 8:42 AM December 21 < swaper
+	at 8:42 AM December 21 < swaper
 fi
