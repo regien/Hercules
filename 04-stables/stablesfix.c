@@ -36,6 +36,9 @@ void	allocate_loads_of_memory(void) {
 		printf("%ld\n", sum_array(int_pointer_powa, 4242));
 		printf("%s\n", pointer_powa);
 		printf("%ld\n", sum_array(another_pointer, 424242));
+		free(int_pointer_powa);
+		free(pointer_powa);
+		free(another_pointer);
 }
 
 int main(void) {
