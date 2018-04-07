@@ -1,0 +1,35 @@
+MAKE = make -C
+NAME = test
+LIB = libft/
+CFLAGS = -Wall -Wextra -Werror
+CC = gcc
+INCLUDES = -I includes/
+
+#When compiling. you need to add your .a lib
+CFILES = $(LIB)/libft.a \
+         main.c 
+
+#These options are here in case the lib needs to be recompiled.
+#LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
+LIBM = $(MAKE) $(LIB) re
+LIBC = $(MAKE) $(LIB) clean
+LIBF = $(MAKE) $(LIB) fclean
+OBJECTS = $(CFILES:.c=.o)
+
+all: $(NAME)
+
+$(NAME):
+	@$(LIBM)
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(CFILES)
+
+clean:
+	@$(LIBC)
+	@/bin/rm -f $(OBJECTS)
+
+fclean:
+	@$(LIBF)
+	@/bin/rm -f $(OBJECTS) $(NAME)
+
+re: fclean all
+
+.PHONY: all, clean, fclean, re
